@@ -19,54 +19,267 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 20px;
+            overflow-x: hidden;
         }
 
-        header {
+        /* ===== HOME SCREEN ===== */
+        .home-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .home-screen.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-container {
             text-align: center;
-            margin-bottom: 30px;
         }
 
-        h1 { 
-            font-size: 2.5rem; 
-            font-weight: 800;
-            background: linear-gradient(135deg, #e50914, #ff6b6b);
+        .logo {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #e50914, #ff6b6b, #e50914);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 40px rgba(229, 9, 20, 0.3);
+            animation: gradientShift 3s ease infinite;
+            letter-spacing: 8px;
+            text-shadow: 0 0 60px rgba(229, 9, 20, 0.4);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .tagline {
+            color: #555;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .search-section {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .search-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            min-width: 280px;
+        }
+
+        .search-box:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-box.movie-box:hover {
+            box-shadow: 0 20px 40px rgba(229, 9, 20, 0.2);
+            border-color: rgba(229, 9, 20, 0.3);
+        }
+
+        .search-box.series-box:hover {
+            box-shadow: 0 20px 40px rgba(0, 150, 255, 0.2);
+            border-color: rgba(0, 150, 255, 0.3);
+        }
+
+        .search-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .movie-box .search-icon {
+            background: linear-gradient(135deg, #e50914, #ff4444);
+            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
+        }
+
+        .series-box .search-icon {
+            background: linear-gradient(135deg, #0096ff, #00d4ff);
+            box-shadow: 0 10px 30px rgba(0, 150, 255, 0.3);
+        }
+
+        .search-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .movie-box .search-title { color: #e50914; }
+        .series-box .search-title { color: #0096ff; }
+
+        .search-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 30px;
+            border: 2px solid #333;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1.1rem;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
             letter-spacing: 3px;
         }
 
-        .subtitle {
-            color: #666;
-            font-size: 0.85rem;
-            margin-top: 5px;
+        .search-input::placeholder {
+            color: #555;
+            letter-spacing: 1px;
+        }
+
+        .movie-box .search-input:focus {
+            border-color: #e50914;
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+        }
+
+        .series-box .search-input:focus {
+            border-color: #0096ff;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+        }
+
+        .search-btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 30px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .movie-box .search-btn {
+            background: linear-gradient(135deg, #e50914, #ff4444);
+            color: white;
+        }
+
+        .series-box .search-btn {
+            background: linear-gradient(135deg, #0096ff, #00d4ff);
+            color: white;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== PLAYER SCREEN ===== */
+        .player-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            width: 100%;
+            max-width: 1100px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .player-screen.active {
+            display: flex;
+        }
+
+        .player-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .back-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .content-badge {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        .player-container {
-            width: 100%;
-            max-width: 1100px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        .content-badge.movie {
+            background: linear-gradient(135deg, #e50914, #ff4444);
+        }
+
+        .content-badge.series {
+            background: linear-gradient(135deg, #0096ff, #00d4ff);
+        }
+
+        .content-id {
+            color: #666;
+            font-size: 0.9rem;
+            margin-left: auto;
         }
 
         .player-wrapper {
             position: relative;
+            width: 100%;
             aspect-ratio: 16 / 9;
             background: #000;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(255, 255, 255, 0.05),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
 
-        .player-wrapper::before {
+        .player-wrapper.movie-active::before {
             content: '';
             position: absolute;
             top: -2px;
@@ -79,150 +292,278 @@
             opacity: 0.5;
         }
 
+        .player-wrapper.series-active::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #0096ff, #00d4ff, #0096ff);
+            border-radius: 18px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
         iframe {
             width: 100%;
             height: 100%;
             border: none;
         }
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.03);
+        /* ===== SERIES CONTROLS ===== */
+        .series-controls {
+            display: none;
+            width: 100%;
+            padding: 25px;
+            background: rgba(0, 150, 255, 0.05);
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            gap: 20px;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .nav-btn {
-            width: 60px;
-            height: 60px;
+        .series-controls.active {
+            display: flex;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 30px;
+        }
+
+        .control-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .control-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0096ff;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .control-btn {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: none;
-            background: linear-gradient(135deg, #1f1f1f, #2a2a2a);
+            background: rgba(0, 150, 255, 0.2);
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        .nav-btn:hover {
+        .control-btn:hover {
+            background: #0096ff;
             transform: scale(1.1);
-            background: linear-gradient(135deg, #e50914, #ff4444);
-            box-shadow: 
-                0 6px 25px rgba(229, 9, 20, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        .nav-btn:active {
+        .control-btn:active {
             transform: scale(0.95);
         }
 
-        .nav-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
         }
 
-        .episode-display {
-            min-width: 180px;
-            text-align: center;
-            padding: 15px 30px;
-            background: rgba(229, 9, 20, 0.1);
-            border-radius: 30px;
-            border: 1px solid rgba(229, 9, 20, 0.3);
-        }
-
-        .episode-label {
-            font-size: 0.75rem;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-        }
-
-        .episode-number {
-            font-size: 1.8rem;
+        .nav-btn {
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            background: linear-gradient(135deg, #0096ff, #00d4ff);
+            color: white;
             font-weight: 700;
-            color: #e50914;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .season-info {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 3px;
+        .nav-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 150, 255, 0.3);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
         }
 
         footer {
-            margin-top: 30px;
-            color: #444;
+            margin-top: 40px;
+            color: #333;
             font-size: 0.75rem;
-            text-align: center;
         }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            
-            .nav-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
+        /* ===== FLOATING PARTICLES ===== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
 
-            .episode-display {
-                min-width: 120px;
-                padding: 10px 20px;
-            }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(229, 9, 20, 0.3);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
 
-            .episode-number {
-                font-size: 1.4rem;
+        .particle:nth-child(even) {
+            background: rgba(0, 150, 255, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
             }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .logo { font-size: 2.5rem; letter-spacing: 4px; }
+            .search-section { gap: 20px; }
+            .search-box { min-width: 100%; padding: 25px; }
+            .control-row { flex-direction: column; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>DEV PLAYER</h1>
-        <p class="subtitle">Private Streaming Lab</p>
-    </header>
+    <!-- Floating Particles -->
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 4.5s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 1.5s;"></div>
+    </div>
 
-    <div class="player-container">
-        <div class="player-wrapper">
+    <!-- HOME SCREEN -->
+    <div class="home-screen" id="homeScreen">
+        <div class="logo-container">
+            <h1 class="logo">DEVPLAYER</h1>
+            <p class="tagline">Private Streaming Lab</p>
+        </div>
+
+        <div class="search-section">
+            <!-- FILM -->
+            <div class="search-box movie-box">
+                <div class="search-icon">🎬</div>
+                <h2 class="search-title">FILM</h2>
+                <div class="search-input-wrapper">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        id="movieInput" 
+                        placeholder="ID TMDB"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                    >
+                </div>
+                <button class="search-btn" id="movieBtn">▶ GUARDA FILM</button>
+            </div>
+
+            <!-- SERIE TV -->
+            <div class="search-box series-box">
+                <div class="search-icon">📺</div>
+                <h2 class="search-title">SERIE TV</h2>
+                <div class="search-input-wrapper">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        id="seriesInput" 
+                        placeholder="ID TMDB"
+                        inputmode="numeric"
+                        pattern="[0-9]*"
+                    >
+                </div>
+                <button class="search-btn" id="seriesBtn">▶ GUARDA SERIE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLAYER SCREEN -->
+    <div class="player-screen" id="playerScreen">
+        <div class="player-header">
+            <button class="back-btn" id="backBtn">←</button>
+            <span class="content-badge" id="contentBadge">FILM</span>
+            <span class="content-id" id="contentId">ID: 000000</span>
+        </div>
+
+        <div class="player-wrapper" id="playerWrapper">
             <iframe 
                 id="player"
-                src="https://vixsrc.to/tv/131589/1/1" 
+                src="about:blank" 
                 referrerpolicy="origin"
                 allowfullscreen>
             </iframe>
         </div>
 
-        <div class="controls">
-            <button class="nav-btn" id="prevBtn" title="Episodio Precedente">
-                <svg viewBox="0 0 24 24">
-                    <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
-                </svg>
-            </button>
+        <!-- SERIE TV CONTROLS -->
+        <div class="series-controls" id="seriesControls">
+            <div class="control-row">
+                <div class="control-group">
+                    <span class="control-label">Stagione</span>
+                    <button class="control-btn" id="seasonDown">−</button>
+                    <span class="control-value" id="seasonNum">1</span>
+                    <button class="control-btn" id="seasonUp">+</button>
+                </div>
 
-            <div class="episode-display">
-                <div class="episode-label">Episodio</div>
-                <div class="episode-number" id="epNum">1</div>
-                <div class="season-info">Stagione <span id="seasonNum">1</span></div>
+                <div class="control-group">
+                    <span class="control-label">Episodio</span>
+                    <button class="control-btn" id="episodeDown">−</button>
+                    <span class="control-value" id="episodeNum">1</span>
+                    <button class="control-btn" id="episodeUp">+</button>
+                </div>
             </div>
 
-            <button class="nav-btn" id="nextBtn" title="Episodio Successivo">
-                <svg viewBox="0 0 24 24">
-                    <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
-                </svg>
-            </button>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prevEp">← Precedente</button>
+                <button class="nav-btn" id="nextEp">Successivo →</button>
+            </div>
         </div>
     </div>
 
@@ -231,32 +572,115 @@
     </footer>
 
     <script>
-        const seriesId = 131589;
+        // State
+        let currentType = null;
+        let currentId = null;
         let season = 1;
         let episode = 1;
 
+        // Elements
+        const homeScreen = document.getElementById('homeScreen');
+        const playerScreen = document.getElementById('playerScreen');
         const player = document.getElementById('player');
-        const epNum = document.getElementById('epNum');
+        const playerWrapper = document.getElementById('playerWrapper');
+        const contentBadge = document.getElementById('contentBadge');
+        const contentId = document.getElementById('contentId');
+        const seriesControls = document.getElementById('seriesControls');
         const seasonNum = document.getElementById('seasonNum');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
+        const episodeNum = document.getElementById('episodeNum');
 
-        function updatePlayer() {
-            player.src = `https://vixsrc.to/tv/${seriesId}/${season}/${episode}`;
-            epNum.textContent = episode;
-            seasonNum.textContent = season;
-        }
-
-        prevBtn.addEventListener('click', () => {
-            if (episode > 1) {
-                episode--;
-                updatePlayer();
-            }
+        // Input validation - only numbers
+        document.querySelectorAll('.search-input').forEach(input => {
+            input.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            });
         });
 
-        nextBtn.addEventListener('click', () => {
-            episode++;
+        // Movie button
+        document.getElementById('movieBtn').addEventListener('click', () => {
+            const id = document.getElementById('movieInput').value;
+            if (id) loadContent('movie', id);
+        });
+
+        // Series button
+        document.getElementById('seriesBtn').addEventListener('click', () => {
+            const id = document.getElementById('seriesInput').value;
+            if (id) loadContent('series', id);
+        });
+
+        // Enter key support
+        document.getElementById('movieInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('movieBtn').click();
+        });
+
+        document.getElementById('seriesInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('seriesBtn').click();
+        });
+
+        // Back button
+        document.getElementById('backBtn').addEventListener('click', () => {
+            homeScreen.classList.remove('hidden');
+            playerScreen.classList.remove('active');
+            player.src = 'about:blank';
+        });
+
+        // Load content
+        function loadContent(type, id) {
+            currentType = type;
+            currentId = id;
+            season = 1;
+            episode = 1;
+
+            homeScreen.classList.add('hidden');
+            playerScreen.classList.add('active');
+
+            contentBadge.textContent = type === 'movie' ? 'FILM' : 'SERIE TV';
+            contentBadge.className = 'content-badge ' + type;
+            contentId.textContent = 'ID: ' + id;
+
+            playerWrapper.className = 'player-wrapper ' + (type === 'movie' ? 'movie-active' : 'series-active');
+
+            seriesControls.classList.toggle('active', type === 'series');
+
             updatePlayer();
+        }
+
+        // Update player source
+        function updatePlayer() {
+            if (currentType === 'movie') {
+                player.src = `https://vixsrc.to/movie/${currentId}`;
+            } else {
+                player.src = `https://vixsrc.to/tv/${currentId}/${season}/${episode}`;
+                seasonNum.textContent = season;
+                episodeNum.textContent = episode;
+            }
+        }
+
+        // Season controls
+        document.getElementById('seasonDown').addEventListener('click', () => {
+            if (season > 1) { season--; episode = 1; updatePlayer(); }
+        });
+
+        document.getElementById('seasonUp').addEventListener('click', () => {
+            season++; episode = 1; updatePlayer();
+        });
+
+        // Episode controls
+        document.getElementById('episodeDown').addEventListener('click', () => {
+            if (episode > 1) { episode--; updatePlayer(); }
+        });
+
+        document.getElementById('episodeUp').addEventListener('click', () => {
+            episode++; updatePlayer();
+        });
+
+        // Nav buttons
+        document.getElementById('prevEp').addEventListener('click', () => {
+            if (episode > 1) { episode--; updatePlayer(); }
+        });
+
+        document.getElementById('nextEp').addEventListener('click', () => {
+            episode++; updatePlayer();
         });
     </script>
 </body>
