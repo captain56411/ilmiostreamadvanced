@@ -79,6 +79,41 @@
             justify-content: center;
         }
 
+        .tmdb-link {
+            text-align: center;
+            margin-top: -20px;
+        }
+
+        .tmdb-link p {
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .tmdb-link a {
+            color: #01b4e4;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 20px;
+            background: rgba(1, 180, 228, 0.1);
+            border: 1px solid rgba(1, 180, 228, 0.3);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tmdb-link a:hover {
+            background: rgba(1, 180, 228, 0.2);
+            box-shadow: 0 0 20px rgba(1, 180, 228, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .tmdb-logo {
+            height: 16px;
+        }
+
         .search-box {
             display: flex;
             flex-direction: column;
@@ -522,6 +557,13 @@
                 </div>
                 <button class="search-btn" id="seriesBtn">▶ GUARDA SERIE</button>
             </div>
+        </div>
+
+        <div class="tmdb-link">
+            <p>Non conosci l'ID? Cercalo su:</p>
+            <a href="https://www.themoviedb.org/?language=it-IT" target="_blank">
+                🎯 TheMovieDB
+            </a>
         </div>
     </div>
 
