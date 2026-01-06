@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Player</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            min-height: 100vh;
+            color: white; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 { 
+            font-size: 2.5rem; 
+            font-weight: 800;
+            background: linear-gradient(135deg, #e50914, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(229, 9, 20, 0.3);
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .player-container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .player-wrapper {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.05),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        }
+
+        .player-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #e50914, #ff6b6b, #e50914);
+            border-radius: 18px;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: linear-gradient(135deg, #1f1f1f, #2a2a2a);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #e50914, #ff4444);
+            box-shadow: 
+                0 6px 25px rgba(229, 9, 20, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-btn:active {
+            transform: scale(0.95);
+        }
+
+        .nav-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        .episode-display {
+            min-width: 180px;
+            text-align: center;
+            padding: 15px 30px;
+            background: rgba(229, 9, 20, 0.1);
+            border-radius: 30px;
+            border: 1px solid rgba(229, 9, 20, 0.3);
+        }
+
+        .episode-label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .episode-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e50914;
+        }
+
+        .season-info {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        footer {
+            margin-top: 30px;
+            color: #444;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .episode-display {
+                min-width: 120px;
+                padding: 10px 20px;
+            }
+
+            .episode-number {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DEV PLAYER</h1>
+        <p class="subtitle">Private Streaming Lab</p>
+    </header>
+
+    <div class="player-container">
+        <div class="player-wrapper">
+            <iframe 
+                id="player"
+                src="https://vixsrc.to/tv/131589/1/1" 
+                referrerpolicy="origin"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="controls">
+            <button class="nav-btn" id="prevBtn" title="Episodio Precedente">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                </svg>
+            </button>
+
+            <div class="episode-display">
+                <div class="episode-label">Episodio</div>
+                <div class="episode-number" id="epNum">1</div>
+                <div class="season-info">Stagione <span id="seasonNum">1</span></div>
+            </div>
+
+            <button class="nav-btn" id="nextBtn" title="Episodio Successivo">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Test privato ad uso puramente didattico</p>
+    </footer>
+
+    <script>
+        const seriesId = 131589;
+        let season = 1;
+        let episode = 1;
+
+        const player = document.getElementById('player');
+        const epNum = document.getElementById('epNum');
+        const seasonNum = document.getElementById('seasonNum');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function updatePlayer() {
+            player.src = `https://vixsrc.to/tv/${seriesId}/${season}/${episode}`;
+            epNum.textContent = episode;
+            seasonNum.textContent = season;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (episode > 1) {
+                episode--;
+                updatePlayer();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            episode++;
+            updatePlayer();
+        });
+    </script>
+</body>
+</html>
